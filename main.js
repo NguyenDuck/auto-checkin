@@ -45,9 +45,12 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var discord_webhook_1 = require("@vermaysha/discord-webhook");
 var michos_api_1 = require("michos_api");
+var fs_1 = require("fs");
 var pngjs_1 = require("pngjs");
 var globalCodes;
-var data = JSON.parse(process.env["USER_DATA"]);
+var data = JSON.parse((0, fs_1.readFileSync)("./secrets.json", {
+    encoding: "utf-8",
+}));
 function main(cookie) {
     return __awaiter(this, void 0, void 0, function () {
         var hoyolab, record_cards, record_card, genshin, daily_info, claim_info, giftCodes, _a, _loop_1, _b, giftCodes_1, giftCodes_1_1, e_1_1;
