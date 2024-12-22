@@ -18,6 +18,6 @@ jobs:
 
             - run: npm install
 
-            - run: echo "${{ secrets.USER_DATA }}" > secrets.json
+            - run: export USER_DATA="${{ secrets.USER_DATA }}"
 
             - run: node main.js
