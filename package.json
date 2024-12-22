@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@vermaysha/discord-webhook": "^1.4.0",
+    "michos_api": "^1.1.9",
+    "pngjs": "^7.0.0",
+    "ts-node-dev": "^2.0.0",
+    "tsc": "^2.0.4",
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/pngjs": "^6.0.5"
+  }
+}
