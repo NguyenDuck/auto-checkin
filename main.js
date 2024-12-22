@@ -45,9 +45,12 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var discord_webhook_1 = require("@vermaysha/discord-webhook");
 var michos_api_1 = require("michos_api");
+var fs_1 = require("fs");
 var pngjs_1 = require("pngjs");
-var process_1 = require("process");
 var globalCodes;
+var data = JSON.parse((0, fs_1.readFileSync)("secrets.json", {
+    encoding: "utf-8",
+}));
 function main(cookie) {
     return __awaiter(this, void 0, void 0, function () {
         var hoyolab, record_cards, record_card, genshin, daily_info, claim_info, giftCodes, _a, _loop_1, _b, giftCodes_1, giftCodes_1_1, e_1_1;
@@ -173,14 +176,13 @@ function main(cookie) {
         });
     });
 }
-var DISCORD_WEBHOOK_URL = undefined;
 function sendCheckinSuccess(record_card, reward) {
     return __awaiter(this, void 0, void 0, function () {
         var hook, reward_icon_url, reward_icon_img, _a, _b, _c, _d, _e;
         return __generator(this, function (_f) {
             switch (_f.label) {
                 case 0:
-                    hook = new discord_webhook_1.Webhook(DISCORD_WEBHOOK_URL !== null && DISCORD_WEBHOOK_URL !== void 0 ? DISCORD_WEBHOOK_URL : process_1.env.DISCORD_WEBHOOK_URL);
+                    hook = new discord_webhook_1.Webhook(data.DISCORD_WEBHOOK_URL);
                     reward_icon_url = reward.award.icon;
                     return [4 /*yield*/, fetch(reward_icon_url)];
                 case 1:
@@ -217,7 +219,7 @@ function sendRedeemedCodeSuccess(record_card, data) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    hook = new discord_webhook_1.Webhook(DISCORD_WEBHOOK_URL !== null && DISCORD_WEBHOOK_URL !== void 0 ? DISCORD_WEBHOOK_URL : process_1.env.DISCORD_WEBHOOK_URL);
+                    hook = new discord_webhook_1.Webhook(data.DISCORD_WEBHOOK_URL);
                     hook.setAvatarUrl(record_card.logo)
                         .setUsername("Paimon")
                         .addEmbed(new discord_webhook_1.Embed()
@@ -289,8 +291,7 @@ function getGiftCodes() {
         });
     });
 }
-var COOKIES = undefined;
-(COOKIES !== null && COOKIES !== void 0 ? COOKIES : JSON.parse(process_1.env.COOKIES)).forEach(function (cookie) {
+data.COOKIES.forEach(function (cookie) {
     main(michos_api_1.Cookie.parseCookieString(cookie)).catch(function (e) {
         console.error(e, e.stack);
     });
