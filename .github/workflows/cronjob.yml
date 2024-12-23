@@ -13,19 +13,22 @@ jobs:
 
             - uses: actions/cache@v4
               with:
-                  path: ./
+                  path: |
+                      ./main.js
+                      ./secrets.json
+                      ./user_data.json
                   key: ${{ runner.os }}-${{ hashFiles('main.ts') }}
+
+            - name: Setup Secrets
+              run: if ! test -e "secrets.json"; then echo '${{ secrets.USER_DATA }}' > secrets.json fi
 
             - uses: actions/setup-node@v4
               with:
                   node-version: 20
                   cache: "npm"
 
-            - run: npm install
+            - run: npm i
 
-            - name: Setup Secrets
-              run: echo '${{ secrets.USER_DATA }}' > secrets.json
-
-            - run: tsc main.ts
+            - run: if ! test -e "main.js" ; then tsc main.ts fi
 
             - run: node main.js
