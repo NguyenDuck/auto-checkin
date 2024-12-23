@@ -21,7 +21,7 @@ jobs:
 
             - name: Setup Secrets
               run: |
-                  if [! -e "./secrets.json"]; then
+                  if ! test -e "./secrets.json"; then
                       echo '${{ secrets.USER_DATA }}' > secrets.json
                   fi
 
@@ -33,7 +33,7 @@ jobs:
             - run: npm i
 
             - run: |
-                  if [! -e "./main.js"]; then
+                  if ! test -e "./main.js"; then
                       tsc main.ts
                   fi
 
