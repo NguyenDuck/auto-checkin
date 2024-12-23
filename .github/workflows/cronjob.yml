@@ -20,7 +20,10 @@ jobs:
                   key: ${{ runner.os }}-${{ hashFiles('main.ts') }}
 
             - name: Setup Secrets
-              run: if ! test -e "secrets.json"; then echo '${{ secrets.USER_DATA }}' > secrets.json fi
+              run: |
+                  if [! -e "./secrets.json"]; then
+                      echo '${{ secrets.USER_DATA }}' > secrets.json
+                  fi
 
             - uses: actions/setup-node@v4
               with:
@@ -29,6 +32,9 @@ jobs:
 
             - run: npm i
 
-            - run: if ! test -e "main.js" ; then tsc main.ts fi
+            - run: |
+                  if [! -e "./main.js"]; then
+                      tsc main.ts
+                  fi
 
             - run: node main.js
