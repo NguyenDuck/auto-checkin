@@ -11,6 +11,11 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
+            - uses: actions/cache@v4
+              with:
+                  path: ./
+                  key: ${{ runner.os }}-${{ hashFiles('main.ts') }}
+
             - uses: actions/setup-node@v4
               with:
                   node-version: 20
@@ -18,6 +23,9 @@ jobs:
 
             - run: npm install
 
-            - run: echo '${{ secrets.USER_DATA }}' > secrets.json
+            - name: Setup Secrets
+              run: echo '${{ secrets.USER_DATA }}' > secrets.json
+
+            - run: tsc main.ts
 
             - run: node main.js

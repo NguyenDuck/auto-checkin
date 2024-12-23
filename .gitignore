@@ -1,3 +1,4 @@
-*.ts
-*.json
+*.js
 node_modules/
+secrets.json
+user_data.json
