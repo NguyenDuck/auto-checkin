@@ -3,7 +3,7 @@ name: Auto Checkin
 on:
     workflow_dispatch:
     schedule:
-        - cron: "30 5 * * *"
+        - cron: "0 0-6/1 */1 * *"
 
 jobs:
     run:
@@ -20,10 +20,7 @@ jobs:
                   key: ${{ runner.os }}-${{ hashFiles('main.ts') }}
 
             - name: Setup Secrets
-              run: |
-                  if ! test -e "./secrets.json"; then
-                      echo '${{ secrets.USER_DATA }}' > secrets.json
-                  fi
+              run: echo '${{ secrets.USER_DATA }}' > secrets.json
 
             - uses: actions/setup-node@v4
               with:
