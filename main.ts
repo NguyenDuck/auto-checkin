@@ -98,7 +98,7 @@ async function sendRedeemedCodeSuccess(record_card: any, data: any) {
         .addEmbed(
             new Embed()
                 .setColor("#AEFF9C")
-                .setTitle("Đã Đổi Giftcode" + data.code)
+                .setTitle("Đã Đổi Giftcode")
                 .setAuthor({
                     name: `${record_card.nickname} - ${record_card.game_role_id} - AR ${record_card.level}`,
                     icon_url: record_card.logo,
