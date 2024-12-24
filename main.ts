@@ -153,8 +153,8 @@ async function getGiftCodes() {
     return await response.json();
 }
 
-secrets.COOKIES.forEach((cookie: string) => {
-    main(Cookie.parseCookieString(cookie)).catch((e) => {
+secrets.COOKIES.forEach(async (cookie: string) => {
+    await main(Cookie.parseCookieString(cookie)).catch((e) => {
         console.error(e, e.stack);
     });
 });
