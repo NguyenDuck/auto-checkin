@@ -3,7 +3,7 @@ name: Auto Checkin
 on:
     workflow_dispatch:
     schedule:
-        - cron: "0 */1 */1 * *"
+        - cron: "0 */4 */1 * *"
 
 jobs:
     run:
@@ -11,27 +11,35 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
-            - uses: actions/cache@v4
+            - name: User Data Cache
+              uses: actions/cache@v4
               with:
-                  path: |
-                      ./main.js
-                      ./secrets.json
-                      ./user_data.json
+                  path: ./user_data.json
+                  key: ${{ runner.os }}
+
+            - name: Build Cache
+              uses: actions/cache@v4
+              with:
+                  path: ./main.js
                   key: ${{ runner.os }}-${{ hashFiles('main.ts') }}
 
-            - name: Setup Secrets
+            - name: Secrets
               run: echo '${{ secrets.USER_DATA }}' > secrets.json
 
-            - uses: actions/setup-node@v4
+            - name: Node
+              uses: actions/setup-node@v4
               with:
                   node-version: 20
                   cache: "npm"
 
-            - run: npm i
+            - name: Install
+              run: npm i
 
-            - run: |
+            - name: Build
+              run: |
                   if ! test -e "./main.js"; then
                       tsc main.ts
                   fi
 
-            - run: node main.js
+            - name: Run script
+              run: node main.js
